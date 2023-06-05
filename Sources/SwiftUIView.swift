@@ -7,14 +7,17 @@
 
 import SwiftUI
 
+@available(iOS 13.0, *)
 public struct MySwiftUIView: View {
+    public init() {}
+
     public var body: some View {
         Text("This is from MyLibrary")
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
-    static var previews: some View {
-        SwiftUIView()
-    }
-}
+//struct SwiftUIView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SwiftUIView()
+//    }
+//}

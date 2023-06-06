@@ -1,0 +1,6 @@
+/* The text indicates the current page number and the total number of available pages. This may read to the user by VoiceOver */
+"generic.page-number" = "Page [CURRENT] of [TOTAL]";
+
+/* The text shown on top of the page control element for VoiceOver users */
+"generic.page-control" = "Page control";
+

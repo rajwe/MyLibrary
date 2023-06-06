@@ -3,6 +3,7 @@
 
 import PackageDescription
 
+let localizePlugin = Target.PluginUsage.plugin(name: "LocalizePlugin")
 let package = Package(
     name: "MyLibrary",
     products: [
@@ -10,6 +11,7 @@ let package = Package(
         .library(
             name: "MyLibrary",
             targets: ["MyLibrary"]),
+        .plugin(name: "LocalizePlugin", targets: ["LocalizePlugin"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -22,7 +24,12 @@ let package = Package(
         .target(
             name: "MyLibrary",
             dependencies: ["Alamofire"],
-            path: "Sources"),
+            path: "Sources",
+            plugins: [localizePlugin]),
+        .plugin(
+            name: "LocalizePlugin",
+            capability: .buildTool()
+        ),
             
         .testTarget(
             name: "MyLibraryTests",

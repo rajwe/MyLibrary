@@ -6,6 +6,7 @@ import PackageDescription
 let localizePlugin = Target.PluginUsage.plugin(name: "LocalizePlugin")
 let package = Package(
     name: "MyLibrary",
+    defaultLocalization: "en",
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(

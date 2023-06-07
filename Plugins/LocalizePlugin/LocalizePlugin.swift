@@ -14,7 +14,6 @@ struct LocalizePlugin: BuildToolPlugin {
         debugPrint("PluginWorkDirectory: \(context.pluginWorkDirectory)")
 
         let executable = context.package.directory
-            .removingLastComponent()
             .appending(subpath: "scripts/Localizable")
         debugPrint("Excecutable \(executable)")
 

@@ -9,16 +9,18 @@ struct LocalizePlugin: BuildToolPlugin {
     ) async throws -> [PackagePlugin.Command] {
         let input = target.directory.appending(subpath: "\(target.name)/Resources/en.lproj/Localizable.strings")
 
-        let output = context.pluginWorkDirectory.appending(subpath: "\(target.name)/Localized-Generated.swift")
-        try FileManager.default.createDirectory(atPath: output.removingLastComponent().string, withIntermediateDirectories: false)
+        let output = context.pluginWorkDirectory.appending(subpath: "\(target.name)/Localized.swift")
+//        try FileManager.default.createDirectory(atPath: output.removingLastComponent().string, withIntermediateDirectories: false)
+        debugPrint("PluginWorkDirectory: \(context.pluginWorkDirectory)")
 
         let executable = context.package.directory
             .removingLastComponent()
             .appending(subpath: "scripts/Localizable")
+        debugPrint("Excecutable \(executable)")
 
         return [
-            .prebuildCommand(
-                displayName: "Generate Localized.swift [Prebuild Command] for \(target.name)",
+            .buildCommand(
+                displayName: "Generate Localized.swift [build Command] for \(target.name)",
                 executable: executable,
                 arguments: [
                     "generateCode",
@@ -27,7 +29,8 @@ struct LocalizePlugin: BuildToolPlugin {
                     "-m=1"
                 ],
                 environment: [:],
-                outputFilesDirectory: context.pluginWorkDirectory
+                inputFiles: [input],
+                outputFiles: [output]
             )
         ]
     }

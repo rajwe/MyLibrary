@@ -8,8 +8,10 @@ struct LocalizePlugin: BuildToolPlugin {
         target: PackagePlugin.Target
     ) async throws -> [PackagePlugin.Command] {
         let input = target.directory.appending(subpath: "\(target.name)/Resources/en.lproj/Localizable.strings")
+        let outputDir = context.pluginWorkDirectory.appending("GeneratedFiles")
+        let output = outputDir.string + "/Localized.swift"
 
-        let output = context.pluginWorkDirectory.appending(subpath: "\(target.name)/Localized.swift")
+//        let output = context.pluginWorkDirectory.appending(subpath: "\(target.name)/Localized.swift")
 //        try FileManager.default.createDirectory(atPath: output.removingLastComponent().string, withIntermediateDirectories: false)
         debugPrint("PluginWorkDirectory: \(context.pluginWorkDirectory)")
 
@@ -18,7 +20,7 @@ struct LocalizePlugin: BuildToolPlugin {
         debugPrint("Excecutable \(executable)")
 
         return [
-            .buildCommand(
+            .prebuildCommand(
                 displayName: "Generate Localized.swift [build Command] for \(target.name)",
                 executable: executable,
                 arguments: [
@@ -28,8 +30,7 @@ struct LocalizePlugin: BuildToolPlugin {
                     "-m=1"
                 ],
                 environment: [:],
-                inputFiles: [input],
-                outputFiles: [output]
+                outputFilesDirectory: outputDir
             )
         ]
     }
